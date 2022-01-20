@@ -13,7 +13,7 @@ from time_model import (
     )
 
 menu_items = {
-        'About': "This is an app about analysing your productive working time!"
+        'About': "This is an app about analysing your deep work productive time!"
     }
 title = 'Lets talk about meetings...'
 st.set_page_config(page_title=title, page_icon='⏰', layout="centered", initial_sidebar_state="auto", menu_items=menu_items)
@@ -23,8 +23,8 @@ st.set_page_config(page_title=title, page_icon='⏰', layout="centered", initial
 
 st.title(title)
 
-st.write('Meetings are important but they sometimes prevent us from doing productive work. This model captures the interaction effects of meetings on productive time in a week.')
-st.write('This model captures the interaction effects of meetings on productive time in a week.')
+st.write('Meetings are important but they sometimes prevent us from doing deep work. This model captures the interaction effects of meetings on deep-focused work in a week.')
+st.write('This model captures the interaction effects of meetings on productive deep work time in a week.')
 
 date_input = st.date_input(
     'Select A Week To Analyse',
@@ -37,7 +37,7 @@ st.caption(f'Week commencing {get_week_start(date_input)}')
 st.subheader('Parameters section')
 
 required_productive_proportion = st.slider(
-    label='What proportion of time do you need to do productive work this week? (%)',
+    label='What proportion of time do you need to do deep work this week? (%)',
     min_value=0,
     max_value=100,
     step=5,
@@ -146,7 +146,7 @@ col1, col2 = st.columns(2)
 with col1:
     productive_time_lost = calc_productive_time_lost(input_total_meeting_hours, input_total_meeting_blocks, input_context_switch_cost_mins) 
     st.metric(
-        label='Non-productive work time (hours)', 
+        label='Non-deep work productivity time (hours)', 
         value=round(productive_time_lost, 1), 
         #delta=float, 
         delta_color="normal")
@@ -154,7 +154,7 @@ with col1:
 with col2:
     productive_time_lost_prop = calc_productive_time_lost(input_total_meeting_hours, input_total_meeting_blocks, input_context_switch_cost_mins, True) 
     st.metric(
-        label='Non-productive work time (%)', 
+        label='Non-deep work productive time (%)', 
         value=f'{productive_time_lost_prop:.00%}', 
         #delta=float, 
         delta_color="normal")
@@ -164,7 +164,7 @@ col1, col2 = st.columns(2)
 with col1:
     productive_time = calc_potential_productive_time(input_total_meeting_hours, input_total_meeting_blocks, input_context_switch_cost_mins)
     st.metric(
-        label='Productive work time (hours)', 
+        label='Deep work productive time (hours)', 
         value=round(productive_time, 1), 
         #delta=float, 
         delta_color="normal")
@@ -172,7 +172,7 @@ with col1:
 with col2:
     productive_time_prop = calc_potential_productive_time(input_total_meeting_hours, input_total_meeting_blocks, input_context_switch_cost_mins, True)
     st.metric(
-        label='Productive work time (%)', 
+        label='Deep work productive time (%)', 
         value= f'{productive_time_prop:.00%}', 
         #delta=float, 
         delta_color="normal")
@@ -193,7 +193,7 @@ meetings_to_cut_higher = math.ceil(meetings_to_cut)
 
 deficit_text = f'''
 \n The bad news is...
-\n You have a deficit of {amount_of_time_required} hours to meet your productivity target.
+\n You have a deficit of {amount_of_time_required} hours to meet your deep work productivity target.
 \n We therefore reccomend you remove between {meetings_to_cut_lower} and {meetings_to_cut_higher} meeting(s) from your calendar,
 based on an average meeting duration of {av_meeting_length}.
 \n Good luck!
@@ -201,7 +201,7 @@ based on an average meeting duration of {av_meeting_length}.
 
 surplus_text = f'''
 \n Lucky you!
-\n You have a surplus of {abs(amount_of_time_required)} hours to meet your productivity target.
+\n You have a surplus of {abs(amount_of_time_required)} hours to meet your deep work productivity target.
 \n Your average meeting length is {av_meeting_length} minutes.
 \n You do not need to remove any meetings.
 \n You can probably use the extra time to make more progress on your work, take a long lunch, read a book, or simply do nothing.
@@ -230,7 +230,7 @@ if av_meeting_length <= 0:
     meetings_to_cut_higher = 0
 with col1:
     st.metric(
-        label='Time required to meet productivity target (hours)', 
+        label='Time required to meet deep work productivity target (hours)', 
         value= f'{amount_of_time_required}', 
         #delta=float, 
         delta_color="normal")
@@ -248,7 +248,7 @@ st.image(img_path)
 ####################################################################################################################
 
 with st.expander("Research"):
-    st.write("""Research shows that there are many challenges to getting productive work done due to excessive meetings and the costs of context switching""")
+    st.write("""Research shows that there are many challenges to getting deep work done due to excessive meetings and the costs of context switching""")
     st.write('Advice #1: Each new project brings an overhead of meetings. Try to cut down on the number of projects you are juggling.', unsafe_allow_html=False)
     st.image("images/multitasking.png", caption='Multitasking is costly. Source: RescueTime')
     st.write('Advice #2: Every time you switch meetings, there is a tax your brain pays to get focused on the following task Try to group your meetings into blocks.', unsafe_allow_html=False)
