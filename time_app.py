@@ -260,8 +260,6 @@ with st.expander("Research"):
     body = '''
     \n - [VBA script to generate meeting time](https://www.extendoffice.com/documents/outlook/3551-outlook-calendar-count-hours-days-weeks.html)
     \n - [Context Switching: Rescue Time blog](https://blog.rescuetime.com/context-switching/)
-    \n - [Context Switching: Loom blog](https://www.loom.com/blog/cost-of-context-switching)
-    \n - [Context Switching: Developer specific](https://www.brightdevelopers.com/the-cost-of-interruption-for-software-developers/)
     '''
     st.markdown(body, unsafe_allow_html=False)
 
