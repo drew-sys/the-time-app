@@ -231,7 +231,7 @@ if av_meeting_length <= 0:
 with col1:
     st.metric(
         label='Time required to meet deep work productivity target (hours)', 
-        value= f'{amount_of_time_required}', 
+        value= f'{balance_of_productive_time}', 
         #delta=float, 
         delta_color="normal")
 
