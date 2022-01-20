@@ -92,9 +92,9 @@ A meeting block is a series of back-to-back meetings separated by no more than 5
 \n Context switching refers to time it takes you to get back into a productive working mode. The average cost of context switching is 22 minutes and varies depending on the type of task you are undertaking.
 '''
 help_button = st.button('Parameter help')
-st.write(help_button)
 if help_button:
     st.write(help_text)
+
 
 ####################################################################################################################
 
