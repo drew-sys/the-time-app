@@ -49,10 +49,10 @@ input_working_hours_in_week_raw = st.number_input(
 input_working_hours_in_week = return_working_hours(input_working_hours_in_week_raw)
 
 if TOTAL_WORKING_HOURS_IN_WEEK < input_working_hours_in_week <= WARNING_TRIGGER_HOURS:
-    st.warning(f'⚠️ Your reported working hours are in excess of {int(TOTAL_WORKING_HOURS_IN_WEEK)} ⚠️ ')
+    st.warning(f'⚠️ Your reported working hours {input_working_hours_in_week} are in excess of {int(TOTAL_WORKING_HOURS_IN_WEEK)} ⚠️ ')
 
 if WARNING_TRIGGER_HOURS < input_working_hours_in_week <= MAX_WORKING_HOURS:
-    st.error(f'🚨 Your working hours are in excess of {int(WARNING_TRIGGER_HOURS)} 🚨')
+    st.error(f'🚨 Your working hours {input_working_hours_in_week} are in excess of {int(WARNING_TRIGGER_HOURS)} 🚨')
 
 st.caption(f'You chose week commencing: {week_start}')
 st.caption(f'We have assumed the following working rhythm: {int(DAYS_IN_WORKING_WEEK)} days a week, {round(input_working_hours_in_week/DAYS_IN_WORKING_WEEK, 1)} working hours a day, {int(input_working_hours_in_week)} hours a week')
@@ -122,8 +122,8 @@ col1, col2 = st.columns(2)
 
 with col1:
     val = calc_meeting_time(
-        total_hours_in_week=input_total_meeting_hours,
-        total_meeting_hours=input_total_meetings)
+        total_meeting_hours=input_total_meeting_hours,
+        total_hours_in_week=input_working_hours_in_week)
     st.metric(
         label='Total meeting time (hours)',
         value=input_total_meeting_hours,
@@ -132,8 +132,8 @@ with col1:
 
 with col2:
     val = calc_meeting_time(
-        total_hours_in_week=input_total_meeting_hours,
-        total_meeting_hours=input_total_meetings,
+        total_meeting_hours=input_total_meeting_hours,
+        total_hours_in_week=input_working_hours_in_week,
         as_prop=True) 
     st.metric(
         label='Meeting time (%)',
