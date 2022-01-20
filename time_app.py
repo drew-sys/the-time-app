@@ -42,7 +42,8 @@ input_working_hours_in_week_raw = st.number_input(
     min_value=MIN_WORKING_HOURS,
     max_value=MAX_WORKING_HOURS,
     value=float(input_working_hours_in_week_raw),
-    step=float(1)
+    step=float(1),
+    format='%i'
     )
 
 input_working_hours_in_week = return_working_hours(input_working_hours_in_week_raw)
