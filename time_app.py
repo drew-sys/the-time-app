@@ -197,7 +197,7 @@ deficit_text = f'''
 \n The bad news is...
 \n You have a deficit of {amount_of_time_required} hours to meet your deep work productivity target.
 \n We therefore reccomend you remove between {meetings_to_cut_lower} and {meetings_to_cut_higher} meeting(s) from your calendar,
-based on an average meeting duration of {av_meeting_length}.
+based on an average meeting duration of {round(av_meeting_length, 0)}.
 \n Good luck!
 '''
 
