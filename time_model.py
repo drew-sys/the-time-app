@@ -11,7 +11,7 @@ MINIMUM_MEETING_LENGHT_MINS = float(15)
 
 MAX_NUMBER_OF_MEETINGS = float(50)
 
-ROUNDING_DEFAULT = 1
+ROUNDING_DEFAULT = 2
 
 def calc_average_meeting_length(total_meeting_hours, total_meetings, rounding: int = ROUNDING_DEFAULT):
     if total_meetings == 0:

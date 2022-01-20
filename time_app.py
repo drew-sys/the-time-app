@@ -6,7 +6,7 @@ from datetime import datetime as dt
 
 from time_model import (
     TOTAL_WORKING_HOURS_IN_WEEK, MINIMUM_MEETING_LENGHT_MINS,
-    MAX_NUMBER_OF_MEETINGS, TOTAL_WORKING_HOURS_IN_DAY,
+    MAX_NUMBER_OF_MEETINGS, TOTAL_WORKING_HOURS_IN_DAY, ROUNDING_DEFAULT,
     get_week_start, calc_average_meeting_length, calc_average_meeting_block_length,
     calc_productive_time_lost, calc_potential_productive_time, calc_lost_productivity, 
     calc_meeting_time
@@ -185,7 +185,7 @@ st.write(f'You stated that you require {required_productive_proportion}% of your
 
 required_productive_proportion_calc = required_productive_proportion / 100
 balance_of_productive_time = required_productive_proportion_calc - productive_time_prop
-amount_of_time_required = round(balance_of_productive_time * TOTAL_WORKING_HOURS_IN_DAY, 2)
+amount_of_time_required = round(balance_of_productive_time * TOTAL_WORKING_HOURS_IN_DAY, ROUNDING_DEFAULT)
 av_meeting_length = calc_average_meeting_length(input_total_meeting_hours, input_total_meetings)
 meetings_to_cut = (amount_of_time_required * 60) / list({av_meeting_length or 1})[0]
 meetings_to_cut_lower = math.floor(meetings_to_cut)
