@@ -39,10 +39,10 @@ input_working_hours_in_week_raw = TOTAL_WORKING_HOURS_IN_WEEK
 
 input_working_hours_in_week_raw = st.number_input(
     label='What is your usual working hours in a week? (8 hour working day (excluding lunch) = 40 hours per week)', 
-    min_value=MIN_WORKING_HOURS,
-    max_value=MAX_WORKING_HOURS,
-    value=float(input_working_hours_in_week_raw),
-    step=float(1),
+    min_value=int(MIN_WORKING_HOURS),
+    max_value=int(MAX_WORKING_HOURS),
+    value=int(input_working_hours_in_week_raw),
+    step=int(1),
     format='%i'
     )
 
