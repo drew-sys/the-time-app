@@ -1,5 +1,4 @@
 import math
-from tkinter.tix import MAX
 import streamlit as st
 
 from datetime import date
