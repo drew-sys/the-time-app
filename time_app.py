@@ -6,7 +6,7 @@ from datetime import datetime as dt
 
 from time_model import (
     TOTAL_WORKING_HOURS_IN_WEEK, MAX_NUMBER_OF_MEETINGS, 
-    TOTAL_WORKING_HOURS_IN_DAY, ROUNDING_DEFAULT,
+    TOTAL_WORKING_HOURS_IN_DAY, DAYS_IN_WORKING_WEEK,
     get_week_start, calc_average_meeting_length, calc_average_meeting_block_length,
     calc_productive_time_lost, calc_potential_productive_time, calc_lost_productivity, 
     calc_meeting_time
@@ -24,7 +24,6 @@ st.set_page_config(page_title=title, page_icon='⏰', layout="centered", initial
 st.title(title)
 
 intro_text = '''
-\* 
 Meetings are important but they sometimes prevent us from doing deep work.
 \n This model captures the interaction effects of meetings on productive deep work time in a week.
 '''
@@ -35,6 +34,7 @@ date_input = st.date_input(
     value=dt.today(), min_value=date(2022, 1, 1), max_value=date(2023, 1, 1))
 
 st.caption(f'You chose week commencing: {get_week_start(date_input)}')
+st.caption(f'We have assumed the following working rhythm: {DAYS_IN_WORKING_WEEK} days a week, {TOTAL_WORKING_HOURS_IN_DAY} working hours a day, {TOTAL_WORKING_HOURS_IN_WEEK} hours a week')
 
 ####################################################################################################################
 
