@@ -24,6 +24,7 @@ st.set_page_config(page_title=title, page_icon='⏰', layout="centered", initial
 st.title(title)
 
 st.write('Meetings are important but they sometimes prevent us from doing productive work. This model captures the interaction effects of meetings on productive time in a week.')
+st.write('This model captures the interaction effects of meetings on productive time in a week.')
 
 date_input = st.date_input(
     'Select A Week To Analyse',
