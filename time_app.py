@@ -33,12 +33,14 @@ date_input = st.date_input(
     'Select a week in your calendar to analyse',
     value=dt.today(), min_value=date(2022, 1, 1), max_value=date(2023, 1, 1))
 
-st.caption(f'You chose week commencing: {get_week_start(date_input)}')
+week_start = get_week_start(date_input)
+
+st.caption(f'You chose week commencing: {week_start}')
 st.caption(f'We have assumed the following working rhythm: {int(DAYS_IN_WORKING_WEEK)} days a week, {int(TOTAL_WORKING_HOURS_IN_DAY)} working hours a day, {int(TOTAL_WORKING_HOURS_IN_WEEK)} hours a week')
 
 ####################################################################################################################
 
-st.subheader('Add Your Meeting Data')
+st.subheader(f'Add Your Meeting Data For w/c: {week_start}')
 
 required_productive_proportion = st.slider(
     label='What proportion of time do you need to do deep work this week? (%)',
@@ -94,7 +96,7 @@ st.markdown(help_text)
 
 ####################################################################################################################
 
-st.subheader('Your Results')
+st.subheader(f'Your Results For w/c: {week_start}')
 
 col1, col2 = st.columns(2)
 
@@ -187,9 +189,9 @@ with col2:
 
 ####################################################################################################################
 
-st.subheader('Your Reccomendations')
+st.subheader(f'Your Reccomendations For w/c: {week_start}')
 
-st.write(f'You stated that you require {required_productive_proportion}% of your working week to be productive working time.')
+st.write(f'You stated that you require {required_productive_proportion}% of your working week to be deep work focused productive time.')
 
 required_productive_time = (required_productive_proportion / 100) * TOTAL_WORKING_HOURS_IN_WEEK
 balance_of_productive_time = round(productive_time - required_productive_time, 1)
@@ -236,7 +238,7 @@ if av_meeting_length <= 0:
     meetings_to_cut_higher = 0
 with col1:
     st.metric(
-        label='Time required to meet deep work productivity target (hours)', 
+        label=f'Time required to meet deep work productivity target (hours) {deficit_sign}', 
         value= f'{abs(balance_of_productive_time)}', 
         #delta=float, 
         delta_color="normal")
