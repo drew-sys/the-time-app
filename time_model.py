@@ -56,3 +56,8 @@ def calc_potential_productive_time(total_meeting_hours, total_meeting_blocks, co
 def get_week_start(dt_object: datetime):
     start = dt_object - timedelta(days=dt_object.weekday())
     return start.strftime('%d %B %Y')
+
+def return_working_hours(hours, default_val = TOTAL_WORKING_HOURS_IN_WEEK):
+    if hours == 0:
+        return default_val
+    return hours

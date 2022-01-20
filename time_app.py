@@ -10,7 +10,7 @@ from time_model import (
     MAX_WORKING_HOURS, MIN_WORKING_HOURS, WARNING_TRIGGER_HOURS,
     get_week_start, calc_average_meeting_length, calc_average_meeting_block_length,
     calc_productive_time_lost, calc_potential_productive_time, calc_lost_productivity, 
-    calc_meeting_time
+    calc_meeting_time, return_working_hours
     )
 
 menu_items = {
@@ -35,15 +35,17 @@ date_input = st.date_input(
     value=dt.today(), min_value=date(2022, 1, 1), max_value=date(2023, 1, 1))
 
 week_start = get_week_start(date_input)
-input_working_hours_in_week = TOTAL_WORKING_HOURS_IN_WEEK
+input_working_hours_in_week_raw = TOTAL_WORKING_HOURS_IN_WEEK
 
-input_working_hours_in_week = st.number_input(
+input_working_hours_in_week_raw = st.number_input(
     label='What is your usual working hours in a week? (8 hour working day (excluding lunch) = 40 hours per week)', 
     min_value=MIN_WORKING_HOURS,
     max_value=MAX_WORKING_HOURS,
-    value=float(input_working_hours_in_week),
+    value=float(input_working_hours_in_week_raw),
     step=float(1)
     )
+
+input_working_hours_in_week = return_working_hours(input_working_hours_in_week_raw)
 
 if TOTAL_WORKING_HOURS_IN_WEEK < input_working_hours_in_week <= WARNING_TRIGGER_HOURS:
     st.warning(f'⚠️ Your reported working hours are in excess of {int(TOTAL_WORKING_HOURS_IN_WEEK)} ⚠️ ')
