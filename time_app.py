@@ -161,7 +161,7 @@ with col1:
         delta_color="normal")
 
 with col2:
-    lost_productivity_prop = calc_lost_productivity(input_total_meeting_blocks, input_context_switch_cost_mins, as_prop=True, total_hours_in_week=input_working_hours_in_week)
+    lost_productivity_prop = calc_lost_productivity(input_total_meeting_blocks, input_context_switch_cost_mins, total_hours_in_week=input_working_hours_in_week, as_prop=True)
     st.metric(
         label='Context switching tax (%)',
         value= f'{lost_productivity_prop:.00%}',
@@ -179,7 +179,7 @@ with col1:
         delta_color="normal")
 
 with col2:
-    productive_time_lost_prop = calc_productive_time_lost(input_total_meeting_hours, input_total_meeting_blocks, input_context_switch_cost_mins, as_prop=True, total_hours_in_week=input_working_hours_in_week) 
+    productive_time_lost_prop = calc_productive_time_lost(input_total_meeting_hours, input_total_meeting_blocks, input_context_switch_cost_mins, total_hours_in_week=input_working_hours_in_week, as_prop=True) 
     st.metric(
         label='Non-deep work productive time (%)',
         value=f'{productive_time_lost_prop:.00%}',
@@ -197,7 +197,7 @@ with col1:
         delta_color="normal")
 
 with col2:
-    productive_time_prop = calc_potential_productive_time(input_total_meeting_hours, input_total_meeting_blocks, input_context_switch_cost_mins, as_prop=True, total_hours_in_week=input_working_hours_in_week)
+    productive_time_prop = calc_potential_productive_time(input_total_meeting_hours, input_total_meeting_blocks, input_context_switch_cost_mins, total_hours_in_week=input_working_hours_in_week, as_prop=True)
     st.metric(
         label='Deep work productive time (%)', 
         value= f'{productive_time_prop:.00%}', 
