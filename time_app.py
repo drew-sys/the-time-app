@@ -144,7 +144,7 @@ with col2:
 col1, col2 = st.columns(2)
 
 with col1:
-    productive_time_lost = calc_productive_time_lost(input_total_meeting_blocks, input_total_meeting_blocks, input_context_switch_cost_mins) 
+    productive_time_lost = calc_productive_time_lost(input_total_meeting_hours, input_total_meeting_blocks, input_context_switch_cost_mins) 
     st.metric(
         label='Non-working time (hours)', 
         value=productive_time_lost, 
@@ -152,7 +152,7 @@ with col1:
         delta_color="normal")
 
 with col2:
-    productive_time_lost_prop = calc_productive_time_lost(input_total_meeting_blocks, input_total_meeting_blocks, input_context_switch_cost_mins, True) 
+    productive_time_lost_prop = calc_productive_time_lost(input_total_meeting_hours, input_total_meeting_blocks, input_context_switch_cost_mins, True) 
     st.metric(
         label='Non-working time (%)', 
         value=f'{productive_time_lost_prop:.00%}', 
@@ -248,15 +248,15 @@ st.image(img_path)
 ####################################################################################################################
 
 with st.expander("Research"):
-    st.write("""
-    Research shows that its very  hard to get productive work done without structured work due to multitasking and context switching.
-    """)
+    st.write("""Research shows that there are many challenges to getting productive work done due to excessive meetings and the costs of context switching""")
+    st.write('Advice #1: Each new project brings an overhead of meetings. Try to cut down on the number of projects you are juggling.', unsafe_allow_html=False)
     st.image("images/multitasking.png", caption='Multitasking is costly. Source: RescueTime')
-    st.write("""
-    It is important to try to group your meetings into one block.
-    """)
-    st.image("images/outlook_cal2.png", caption='A real outlook calendar.')
-
+    st.write('Advice #2: Every time you switch meetings, there is a tax your brain pays to get focused on the following task Try to group your meetings into blocks.', unsafe_allow_html=False)
+    st.image("images/outlook_cal.png", caption="A random person's outlook calendar. Source: Outlook")
+    st.write('Advice #3: Remember to takes breaks, and go for a walks outside and exercise. They will increase your productivity levels in the long run.', unsafe_allow_html=False)
+    st.image("images/walk.png", caption="Take a long lunch. Source: Unsplash")
+    st.write("Advice #4: Long hours are unsustainable and affect your long term productivity. You can cheat in the very short term, but your body keeps count.", unsafe_allow_html=False)
+    st.image("images/working_late.png", caption="Take a long lunch. Source: iStock")
     st.write('References below')
     body = '''
     \n - [VBA script to generate meeting time](https://www.extendoffice.com/documents/outlook/3551-outlook-calendar-count-hours-days-weeks.html)
@@ -269,4 +269,4 @@ with st.expander("Research"):
 ####################################################################################################################
 
 
-st.caption('Developed in 2022.')
+st.caption('Developed with ❤️ in London.')
