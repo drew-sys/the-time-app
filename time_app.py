@@ -1,4 +1,5 @@
 import math
+from tkinter.tix import MAX
 import streamlit as st
 
 from datetime import date
@@ -7,6 +8,7 @@ from datetime import datetime as dt
 from time_model import (
     TOTAL_WORKING_HOURS_IN_WEEK, MAX_NUMBER_OF_MEETINGS, 
     TOTAL_WORKING_HOURS_IN_DAY, DAYS_IN_WORKING_WEEK,
+    MAX_WORKING_HOURS, MIN_WORKING_HOURS, WARNING_TRIGGER_HOURS,
     get_week_start, calc_average_meeting_length, calc_average_meeting_block_length,
     calc_productive_time_lost, calc_potential_productive_time, calc_lost_productivity, 
     calc_meeting_time
@@ -24,7 +26,7 @@ st.set_page_config(page_title=title, page_icon='⏰', layout="centered", initial
 st.title(title)
 
 intro_text = '''
-Meetings are important but they sometimes prevent us from doing deep work.
+Meetings are important in our working lives, but they sometimes prevent us from doing deep work.
 \n This model captures the interaction effects of meetings on productive deep work time in a week.
 '''
 st.write(intro_text)
@@ -34,14 +36,16 @@ date_input = st.date_input(
     value=dt.today(), min_value=date(2022, 1, 1), max_value=date(2023, 1, 1))
 
 week_start = get_week_start(date_input)
+input_working_hours_in_week = TOTAL_WORKING_HOURS_IN_WEEK
 
 st.caption(f'You chose week commencing: {week_start}')
-st.caption(f'We have assumed the following working rhythm: {int(DAYS_IN_WORKING_WEEK)} days a week, {int(TOTAL_WORKING_HOURS_IN_DAY)} working hours a day, {int(TOTAL_WORKING_HOURS_IN_WEEK)} hours a week')
+st.caption(f'We have assumed the following working rhythm: {int(DAYS_IN_WORKING_WEEK)} days a week, {round(input_working_hours_in_week/DAYS_IN_WORKING_WEEK, 1)} working hours a day, {int(input_working_hours_in_week)} hours a week')
 
 ####################################################################################################################
 
 st.subheader(f'Add Your Meeting Data For w/c {week_start}')
 
+st.warning('This is a warning')
 required_productive_proportion = st.slider(
     label='What proportion of time do you need to do deep work this week? (%)',
     min_value=0,
@@ -51,6 +55,19 @@ required_productive_proportion = st.slider(
 
 st.caption('Define the parameters below based on your outlook calendar and type of work.')
 
+input_working_hours_in_week = st.slider(
+    label='1. Total time spent in meetings (hours)', 
+    min_value=MIN_WORKING_HOURS,
+    max_value=MAX_WORKING_HOURS,
+    value=float(input_working_hours_in_week),
+    step=float(1)
+    )
+
+if TOTAL_WORKING_HOURS_IN_WEEK < input_working_hours_in_week < WARNING_TRIGGER_HOURS:
+    st.warning(f'Your reported working hours are in excess of {TOTAL_WORKING_HOURS_IN_WEEK}')
+
+if WARNING_TRIGGER_HOURS <= input_working_hours_in_week <= MAX_WORKING_HOURS:
+    st.error(f'Your working hours are in excess of {WARNING_TRIGGER_HOURS}')
 
 col1, col2, = st.columns(2)
 
@@ -58,7 +75,7 @@ with col1:
     input_total_meeting_hours = st.slider(
         label='1. Total time spent in meetings (hours)', 
         min_value=float(0), 
-        max_value=TOTAL_WORKING_HOURS_IN_WEEK, 
+        max_value=input_working_hours_in_week, 
         step=float(0.5)
         )
 
@@ -101,7 +118,7 @@ st.subheader(f'Your Results For w/c {week_start}')
 col1, col2 = st.columns(2)
 
 with col1:
-    val = calc_meeting_time(input_total_meeting_hours, input_total_meetings)
+    val = calc_meeting_time(input_total_meeting_hours, input_total_meetings, total_hours_in_week=input_working_hours_in_week)
     st.metric(
         label='Total meeting time (hours)',
         value=input_total_meeting_hours,
@@ -109,7 +126,7 @@ with col1:
         delta_color="normal")
 
 with col2:
-    val = calc_meeting_time(input_total_meeting_hours, input_total_meetings, True) 
+    val = calc_meeting_time(input_total_meeting_hours, input_total_meetings, as_prop=True, total_hours_in_week=input_working_hours_in_week) 
     st.metric(
         label='Meeting time (%)',
         value=f'{val:.00%}',
@@ -126,7 +143,7 @@ with col1:
         delta_color="normal")
 
 with col2:
-    av_block_length = calc_average_meeting_block_length(input_total_meeting_hours, input_total_meeting_blocks) 
+    av_block_length = calc_average_meeting_block_length(input_total_meeting_hours, input_total_meeting_blocks, total_hours_in_week=input_working_hours_in_week) 
     st.metric(
         label='Average meeting block duration (mins)',
         value=round(av_block_length, 0),
@@ -136,7 +153,7 @@ with col2:
 col1, col2 = st.columns(2)
 
 with col1:
-    lost_productivity = calc_lost_productivity(input_total_meeting_blocks, input_context_switch_cost_mins)
+    lost_productivity = calc_lost_productivity(input_total_meeting_blocks, input_context_switch_cost_mins, total_hours_in_week=input_working_hours_in_week)
     st.metric(
         label='Context switching tax (hours)',
         value=round(lost_productivity, 1),
@@ -144,7 +161,7 @@ with col1:
         delta_color="normal")
 
 with col2:
-    lost_productivity_prop = calc_lost_productivity(input_total_meeting_blocks, input_context_switch_cost_mins, True)
+    lost_productivity_prop = calc_lost_productivity(input_total_meeting_blocks, input_context_switch_cost_mins, as_prop=True, total_hours_in_week=input_working_hours_in_week)
     st.metric(
         label='Context switching tax (%)',
         value= f'{lost_productivity_prop:.00%}',
@@ -154,7 +171,7 @@ with col2:
 col1, col2 = st.columns(2)
 
 with col1:
-    productive_time_lost = calc_productive_time_lost(input_total_meeting_hours, input_total_meeting_blocks, input_context_switch_cost_mins) 
+    productive_time_lost = calc_productive_time_lost(input_total_meeting_hours, input_total_meeting_blocks, input_context_switch_cost_mins, total_hours_in_week=input_working_hours_in_week) 
     st.metric(
         label='Non-deep work productivity time (hours)',
         value=round(productive_time_lost, 1),
@@ -162,7 +179,7 @@ with col1:
         delta_color="normal")
 
 with col2:
-    productive_time_lost_prop = calc_productive_time_lost(input_total_meeting_hours, input_total_meeting_blocks, input_context_switch_cost_mins, True) 
+    productive_time_lost_prop = calc_productive_time_lost(input_total_meeting_hours, input_total_meeting_blocks, input_context_switch_cost_mins, as_prop=True, total_hours_in_week=input_working_hours_in_week) 
     st.metric(
         label='Non-deep work productive time (%)',
         value=f'{productive_time_lost_prop:.00%}',
@@ -172,7 +189,7 @@ with col2:
 col1, col2 = st.columns(2)
 
 with col1:
-    productive_time = calc_potential_productive_time(input_total_meeting_hours, input_total_meeting_blocks, input_context_switch_cost_mins)
+    productive_time = calc_potential_productive_time(input_total_meeting_hours, input_total_meeting_blocks, input_context_switch_cost_mins, total_hours_in_week=input_working_hours_in_week)
     st.metric(
         label='Deep work productive time (hours)',
         value=round(productive_time, 1),
@@ -180,7 +197,7 @@ with col1:
         delta_color="normal")
 
 with col2:
-    productive_time_prop = calc_potential_productive_time(input_total_meeting_hours, input_total_meeting_blocks, input_context_switch_cost_mins, True)
+    productive_time_prop = calc_potential_productive_time(input_total_meeting_hours, input_total_meeting_blocks, input_context_switch_cost_mins, as_prop=True, total_hours_in_week=input_working_hours_in_week)
     st.metric(
         label='Deep work productive time (%)', 
         value= f'{productive_time_prop:.00%}', 
@@ -193,7 +210,7 @@ st.subheader(f'Your Reccomendations For w/c {week_start}')
 
 st.write(f'You stated that you require {required_productive_proportion}% of your working week to be deep work focused productive time.')
 
-required_productive_time = (required_productive_proportion / 100) * TOTAL_WORKING_HOURS_IN_WEEK
+required_productive_time = (required_productive_proportion / 100) * input_working_hours_in_week
 balance_of_productive_time = round(productive_time - required_productive_time, 1)
 av_meeting_length = calc_average_meeting_length(input_total_meeting_hours, input_total_meetings)
 meetings_to_cut = (balance_of_productive_time * 60) / list({av_meeting_length or 1})[0]
@@ -205,6 +222,7 @@ deficit_text = f'''
 \n You have a deficit of {abs(balance_of_productive_time)} hours to meet your deep work productivity target.
 \n We therefore reccomend you remove between {meetings_to_cut_lower} and {meetings_to_cut_higher} meeting(s) from your calendar,
 based on an average meeting duration of {round(av_meeting_length, 0)}.
+\n Remember to remove/reschedule your meetings responsibly! ✌️
 \n Good luck!
 '''
 
@@ -273,6 +291,5 @@ with st.expander("Futher Research"):
     st.markdown(body, unsafe_allow_html=False)
 
 ####################################################################################################################
-
 
 st.caption('Made with ❤️ in London.')
