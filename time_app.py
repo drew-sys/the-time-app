@@ -183,15 +183,12 @@ st.subheader('Reccomendations')
 
 st.write(f'You stated that you require {required_productive_proportion}% of your working week to be productive working time.')
 
-required_productive_proportion_calc = required_productive_proportion / 100
-required_productive_time = required_productive_proportion_calc * TOTAL_WORKING_HOURS_IN_DAY
+required_productive_time = (required_productive_proportion / 100) * TOTAL_WORKING_HOURS_IN_WEEK
 balance_of_productive_time = round(productive_time - required_productive_time, 1)
 av_meeting_length = calc_average_meeting_length(input_total_meeting_hours, input_total_meetings)
 meetings_to_cut = (balance_of_productive_time * 60) / list({av_meeting_length or 1})[0]
 meetings_to_cut_lower = math.floor(meetings_to_cut)
 meetings_to_cut_higher = math.ceil(meetings_to_cut)
-
-st.write(balance_of_productive_time)
 
 deficit_text = f'''
 \n The bad news is...
