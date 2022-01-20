@@ -37,6 +37,14 @@ date_input = st.date_input(
 week_start = get_week_start(date_input)
 input_working_hours_in_week = TOTAL_WORKING_HOURS_IN_WEEK
 
+input_working_hours_in_week = st.slider(
+    label='What is your usual working hours in a week? (8 hour working day (excluding lunch) = 40 hours per week)', 
+    min_value=MIN_WORKING_HOURS,
+    max_value=MAX_WORKING_HOURS,
+    value=float(input_working_hours_in_week),
+    step=float(1)
+    )
+
 st.caption(f'You chose week commencing: {week_start}')
 st.caption(f'We have assumed the following working rhythm: {int(DAYS_IN_WORKING_WEEK)} days a week, {round(input_working_hours_in_week/DAYS_IN_WORKING_WEEK, 1)} working hours a day, {int(input_working_hours_in_week)} hours a week')
 
@@ -45,14 +53,6 @@ st.caption(f'We have assumed the following working rhythm: {int(DAYS_IN_WORKING_
 st.subheader(f'Add Your Meeting Data For w/c {week_start}')
 
 st.caption('Define some information about your working rhythm.')
-
-input_working_hours_in_week = st.slider(
-    label='What is your usual working hours in a week? (8 hour working day (excluding lunch) = 40 hours per week)', 
-    min_value=MIN_WORKING_HOURS,
-    max_value=MAX_WORKING_HOURS,
-    value=float(input_working_hours_in_week),
-    step=float(1)
-    )
 
 required_productive_proportion = st.slider(
     label='What proportion of time do you need to do deep work this week? (%)',
