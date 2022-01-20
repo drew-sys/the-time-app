@@ -42,13 +42,14 @@ input_working_hours_in_week = st.number_input(
     min_value=MIN_WORKING_HOURS,
     max_value=MAX_WORKING_HOURS,
     value=float(input_working_hours_in_week),
+    step=float(1)
     )
 
-if TOTAL_WORKING_HOURS_IN_WEEK < input_working_hours_in_week < WARNING_TRIGGER_HOURS:
-    st.warning(f'⚠️ Your reported working hours are in excess of {TOTAL_WORKING_HOURS_IN_WEEK} ⚠️ ')
+if TOTAL_WORKING_HOURS_IN_WEEK < input_working_hours_in_week <= WARNING_TRIGGER_HOURS:
+    st.warning(f'⚠️ Your reported working hours are in excess of {int(TOTAL_WORKING_HOURS_IN_WEEK)} ⚠️ ')
 
-if WARNING_TRIGGER_HOURS <= input_working_hours_in_week <= MAX_WORKING_HOURS:
-    st.error(f'🚨 Your working hours are in excess of {WARNING_TRIGGER_HOURS} 🚨')
+if WARNING_TRIGGER_HOURS < input_working_hours_in_week <= MAX_WORKING_HOURS:
+    st.error(f'🚨 Your working hours are in excess of {int(WARNING_TRIGGER_HOURS)} 🚨')
 
 st.caption(f'You chose week commencing: {week_start}')
 st.caption(f'We have assumed the following working rhythm: {int(DAYS_IN_WORKING_WEEK)} days a week, {round(input_working_hours_in_week/DAYS_IN_WORKING_WEEK, 1)} working hours a day, {int(input_working_hours_in_week)} hours a week')
