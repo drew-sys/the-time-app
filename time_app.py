@@ -184,7 +184,7 @@ st.write(f'You stated that you require {required_productive_proportion}% of your
 
 required_productive_proportion_calc = required_productive_proportion / 100
 balance_of_productive_time = required_productive_proportion_calc - productive_time_prop
-amount_of_time_required = round(balance_of_productive_time * TOTAL_WORKING_HOURS_IN_DAY, ROUNDING_DEFAULT)
+amount_of_time_required = round(balance_of_productive_time * TOTAL_WORKING_HOURS_IN_DAY, 1)
 av_meeting_length = calc_average_meeting_length(input_total_meeting_hours, input_total_meetings)
 meetings_to_cut = (amount_of_time_required * 60) / list({av_meeting_length or 1})[0]
 meetings_to_cut_lower = math.floor(meetings_to_cut)
@@ -193,7 +193,7 @@ meetings_to_cut_higher = math.ceil(meetings_to_cut)
 deficit_text = f'''
 \n The bad news is...
 \n You have a deficit of {amount_of_time_required} hours to meet your productivity target.
-\n We therefore reccomend you remove between {meetings_to_cut_lower} and {meetings_to_cut_higher} meeting(s) from your calendar, based
+\n We therefore reccomend you remove between {meetings_to_cut_lower} and {meetings_to_cut_higher} meeting(s) from your calendar,
 based on an average meeting duration of {av_meeting_length}.
 \n Good luck!
 '''
@@ -230,7 +230,7 @@ if av_meeting_length <= 0:
 with col1:
     st.metric(
         label='Time required to meet productivity target (hours)', 
-        value= f'{round(amount_of_time_required, 1)}', 
+        value= f'{amount_of_time_required}', 
         #delta=float, 
         delta_color="normal")
 
