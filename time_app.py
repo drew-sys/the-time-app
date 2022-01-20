@@ -88,8 +88,8 @@ with col2:
 
 help_text = '''
 \* 
-A meeting block is a series of back-to-back meetings separated by no more than 5 minutes. You should have less meeting blocks than meetings.
-\n Context switching refers to time it takes you to get back into a productive working mode. The average cost of context switching is 22 minutes and varies depending on the type of task you are undertaking.
+_A meeting block is a series of back-to-back meetings separated by no more than 5 minutes. You should have less meeting blocks than meetings.
+\n Context switching refers to time it takes you to get back into a productive working mode. The average cost of context switching is 22 minutes and varies depending on the type of task you are undertaking._
 '''
 st.write(help_text)
 
