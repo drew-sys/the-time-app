@@ -269,4 +269,4 @@ with st.expander("Research"):
 ####################################################################################################################
 
 
-st.caption('Developed by Andrew Isabirye (2022).')
+st.caption('Developed in 2022.')
