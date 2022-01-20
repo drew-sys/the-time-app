@@ -81,8 +81,14 @@ with col2:
         max_value=float(30), 
         step=float(1)
     )
-st.write('''\* _A meeting block is a series of back-to-back meetings separated by no more than 5 minutes. You should have less meeting blocks than meetings._''')
-st.write('''\* _Context switching refers to time it takes you to get back into a productive working mode. The average cost of context switching is 22 minutes and varies depending on the type of task you are undertaking._''')
+
+
+info_text = '''
+\* 
+_A meeting block is a series of back-to-back meetings separated by no more than 5 minutes. You should have less meeting blocks than meetings._
+\n _Context switching refers to time it takes you to get back into a productive working mode. The average cost of context switching is 22 minutes and varies depending on the type of task you are undertaking._
+'''
+st.info(info_text)
 
 ####################################################################################################################
 
