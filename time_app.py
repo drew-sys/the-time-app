@@ -34,7 +34,7 @@ date_input = st.date_input(
     value=dt.today(), min_value=date(2022, 1, 1), max_value=date(2023, 1, 1))
 
 st.caption(f'You chose week commencing: {get_week_start(date_input)}')
-st.caption(f'We have assumed the following working rhythm: {DAYS_IN_WORKING_WEEK} days a week, {TOTAL_WORKING_HOURS_IN_DAY} working hours a day, {TOTAL_WORKING_HOURS_IN_WEEK} hours a week')
+st.caption(f'We have assumed the following working rhythm: {int(DAYS_IN_WORKING_WEEK)} days a week, {int(TOTAL_WORKING_HOURS_IN_DAY)} working hours a day, {int(TOTAL_WORKING_HOURS_IN_WEEK)} hours a week')
 
 ####################################################################################################################
 
