@@ -204,9 +204,8 @@ based on an average meeting duration of {round(av_meeting_length, 0)}.
 surplus_text = f'''
 \n Lucky you!
 \n You have a surplus of {abs(amount_of_time_required)} hours to meet your deep work productivity target.
-\n Your average meeting length is {av_meeting_length} minutes.
 \n You do not need to remove any meetings.
-\n You can probably use the extra time to make more progress on your work, take a long lunch, read a book, or simply do nothing.
+\n You can probably use the extra time to make more progress on your work, take a long lunch, read a book, simply do nothing or anything else you choose 😊.
 '''
 
 chosen_text = 'Complete parameter settings above to produce reccomendations'
