@@ -162,7 +162,7 @@ with col2:
 col1, col2 = st.columns(2)
 
 with col1:
-    productive_time = calc_potential_productive_time(input_total_meeting_blocks, input_total_meeting_blocks, input_context_switch_cost_mins)
+    productive_time = calc_potential_productive_time(input_total_meeting_hours, input_total_meeting_blocks, input_context_switch_cost_mins)
     st.metric(
         label='Potential productive time (hours)', 
         value=f'{productive_time:.1f}', 
