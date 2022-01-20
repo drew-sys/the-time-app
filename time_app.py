@@ -126,9 +126,8 @@ with col1:
         total_hours_in_week=input_working_hours_in_week)
     st.metric(
         label='Total meeting time (hours)',
-        value=input_total_meeting_hours,
-        #delta=float,
-        delta_color="normal")
+        value=input_total_meeting_hours
+        )
 
 with col2:
     val = calc_meeting_time(
@@ -137,18 +136,16 @@ with col2:
         as_prop=True) 
     st.metric(
         label='Meeting time (%)',
-        value=f'{val:.00%}',
-        #delta=float,
-        delta_color="normal")
+        value=f'{val:.00%}'
+        )
 
 col1, col2 = st.columns(2)
 
 with col1:
     st.metric(
         label='Total meeting blocks',
-        value=round(input_total_meeting_blocks, 0),
-        #delta=float,
-        delta_color="normal")
+        value=round(input_total_meeting_blocks, 0)
+        )
 
 with col2:
     av_block_length = calc_average_meeting_block_length(
@@ -156,9 +153,8 @@ with col2:
         total_meeting_blocks=input_total_meeting_blocks) 
     st.metric(
         label='Average meeting block duration (mins)',
-        value=round(av_block_length, 0),
-        #delta=float,
-        delta_color="normal")
+        value=round(av_block_length, 0)
+        )
 
 col1, col2 = st.columns(2)
 
@@ -169,9 +165,8 @@ with col1:
         total_hours_in_week=input_working_hours_in_week)
     st.metric(
         label='Context switching tax (hours)',
-        value=round(lost_productivity, 1),
-        #delta=float,
-        delta_color="normal")
+        value=round(lost_productivity, 1)
+        )
 
 with col2:
     lost_productivity_prop = calc_lost_productivity(
@@ -181,9 +176,8 @@ with col2:
         as_prop=True)
     st.metric(
         label='Context switching tax (%)',
-        value= f'{lost_productivity_prop:.00%}',
-        #delta=float,
-        delta_color="normal")
+        value= f'{lost_productivity_prop:.00%}'
+        )
 
 col1, col2 = st.columns(2)
 
@@ -195,9 +189,8 @@ with col1:
         total_hours_in_week=input_working_hours_in_week) 
     st.metric(
         label='Non-deep work productivity time (hours)',
-        value=round(productive_time_lost, 1),
-        #delta=float,
-        delta_color="normal")
+        value=round(productive_time_lost, 1)
+        )
 
 with col2:
     productive_time_lost_prop = calc_productive_time_lost(
@@ -208,9 +201,8 @@ with col2:
         as_prop=True) 
     st.metric(
         label='Non-deep work productive time (%)',
-        value=f'{productive_time_lost_prop:.00%}',
-        #delta=float,
-        delta_color="normal")
+        value=f'{productive_time_lost_prop:.00%}'
+        )
 
 col1, col2 = st.columns(2)
 
@@ -222,9 +214,8 @@ with col1:
         total_hours_in_week=input_working_hours_in_week)
     st.metric(
         label='Deep work productive time (hours)',
-        value=round(productive_time, 1),
-        #delta=float,
-        delta_color="normal")
+        value=round(productive_time, 1)
+        )
 
 with col2:
     productive_time_prop = calc_potential_productive_time(
@@ -235,9 +226,8 @@ with col2:
         as_prop=True)
     st.metric(
         label='Deep work productive time (%)', 
-        value= f'{productive_time_prop:.00%}', 
-        #delta=float, 
-        delta_color="normal")
+        value= f'{productive_time_prop:.00%}'
+        )
 
 ####################################################################################################################
 
@@ -271,17 +261,19 @@ surplus_text = f'''
 '''
 
 chosen_text = 'Complete parameter settings above to produce reccomendations'
-deficit_sign = ''
 
 img_path = "images/waiting.png"
 if balance_of_productive_time < 0:
     chosen_text = deficit_text
     img_path = "images/stressed.png"
+    time_required_label=f'Time deficit to meet deep work productivity target (hours)'
+    meeting_recc_label = f'Reccomended number of meetings to cut'
     
 if balance_of_productive_time >= 0:
     chosen_text = surplus_text
-    deficit_sign = '(surplus)'
     img_path = "images/relaxed.png"
+    time_required_label = f'Time surplus above deep work productivity target (hours)'
+    meeting_recc_label = f'Number of meetings to spare'
 
 st.write(chosen_text)
 
@@ -293,18 +285,16 @@ if av_meeting_length <= 0:
     meetings_to_cut_higher = 0
 with col1:
     st.metric(
-        label=f'Time required to meet deep work productivity target (hours) {deficit_sign}', 
-        value= f'{abs(balance_of_productive_time)}', 
-        #delta=float, 
-        delta_color="normal")
+        label=time_required_label, 
+        value= f'{abs(balance_of_productive_time)}'
+        )
 
 with col2:
 
     st.metric(
-        label=f'Reccomended meetings to cut {deficit_sign}', 
-        value= f'{meetings_to_cut_lower} to {meetings_to_cut_higher}', 
-        #delta=float, 
-        delta_color="normal")
+        label=meeting_recc_label, 
+        value= f'{meetings_to_cut_lower} to {meetings_to_cut_higher}'
+        )
 
 st.image(img_path)
 

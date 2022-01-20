@@ -59,5 +59,5 @@ def get_week_start(dt_object: datetime):
 
 def return_working_hours(hours, default_val = TOTAL_WORKING_HOURS_IN_WEEK):
     if hours == 0:
-        return default_val
-    return hours
+        return float(default_val)
+    return float(hours)
