@@ -101,34 +101,34 @@ col1, col2 = st.columns(2)
 with col1:
     val = calc_meeting_time(input_total_meeting_hours, input_total_meetings)
     st.metric(
-        label='Total meeting time (hours)', 
-        value=input_total_meeting_hours, 
-        #delta=float, 
+        label='Total meeting time (hours)',
+        value=input_total_meeting_hours,
+        #delta=float,
         delta_color="normal")
 
 with col2:
     val = calc_meeting_time(input_total_meeting_hours, input_total_meetings, True) 
     st.metric(
-        label='Meeting time (%)', 
-        value=f'{val:.00%}', 
-        #delta=float, 
+        label='Meeting time (%)',
+        value=f'{val:.00%}',
+        #delta=float,
         delta_color="normal")
 
 col1, col2 = st.columns(2)
 
 with col1:
     st.metric(
-        label='Total meeting blocks', 
+        label='Total meeting blocks',
         value=round(input_total_meeting_blocks, 0),
-        #delta=float, 
+        #delta=float,
         delta_color="normal")
 
 with col2:
     av_block_length = calc_average_meeting_block_length(input_total_meeting_hours, input_total_meeting_blocks) 
     st.metric(
-        label='Average meeting block duration (mins)', 
+        label='Average meeting block duration (mins)',
         value=round(av_block_length, 0),
-        #delta=float, 
+        #delta=float,
         delta_color="normal")
 
 col1, col2 = st.columns(2)
@@ -136,17 +136,17 @@ col1, col2 = st.columns(2)
 with col1:
     lost_productivity = calc_lost_productivity(input_total_meeting_blocks, input_context_switch_cost_mins)
     st.metric(
-        label='Lost productivity (hours)', 
-        value=round(lost_productivity, 1), 
-        #delta=float, 
+        label='Context switching tax (hours)',
+        value=round(lost_productivity, 1),
+        #delta=float,
         delta_color="normal")
 
 with col2:
     lost_productivity_prop = calc_lost_productivity(input_total_meeting_blocks, input_context_switch_cost_mins, True)
     st.metric(
-        label='Lost productivity (%)', 
-        value= f'{lost_productivity_prop:.00%}', 
-        #delta=float, 
+        label='Context switching tax (%)',
+        value= f'{lost_productivity_prop:.00%}',
+        #delta=float,
         delta_color="normal")
 
 col1, col2 = st.columns(2)
@@ -154,17 +154,17 @@ col1, col2 = st.columns(2)
 with col1:
     productive_time_lost = calc_productive_time_lost(input_total_meeting_hours, input_total_meeting_blocks, input_context_switch_cost_mins) 
     st.metric(
-        label='Non-deep work productivity time (hours)', 
-        value=round(productive_time_lost, 1), 
-        #delta=float, 
+        label='Non-deep work productivity time (hours)',
+        value=round(productive_time_lost, 1),
+        #delta=float,
         delta_color="normal")
 
 with col2:
     productive_time_lost_prop = calc_productive_time_lost(input_total_meeting_hours, input_total_meeting_blocks, input_context_switch_cost_mins, True) 
     st.metric(
-        label='Non-deep work productive time (%)', 
-        value=f'{productive_time_lost_prop:.00%}', 
-        #delta=float, 
+        label='Non-deep work productive time (%)',
+        value=f'{productive_time_lost_prop:.00%}',
+        #delta=float,
         delta_color="normal")
 
 col1, col2 = st.columns(2)
@@ -172,9 +172,9 @@ col1, col2 = st.columns(2)
 with col1:
     productive_time = calc_potential_productive_time(input_total_meeting_hours, input_total_meeting_blocks, input_context_switch_cost_mins)
     st.metric(
-        label='Deep work productive time (hours)', 
-        value=round(productive_time, 1), 
-        #delta=float, 
+        label='Deep work productive time (hours)',
+        value=round(productive_time, 1),
+        #delta=float,
         delta_color="normal")
 
 with col2:
