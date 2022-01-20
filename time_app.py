@@ -188,14 +188,14 @@ current_productive_time = productive_time
 required_productive_time = required_productive_proportion_calc * TOTAL_WORKING_HOURS_IN_DAY
 balance_of_productive_time = round(current_productive_time - required_productive_time, 1)
 av_meeting_length = calc_average_meeting_length(input_total_meeting_hours, input_total_meetings)
-meetings_to_cut = -(balance_of_productive_time * 60) / list({av_meeting_length or 1})[0]
+meetings_to_cut = (balance_of_productive_time * 60) / list({av_meeting_length or 1})[0]
 meetings_to_cut_lower = math.floor(meetings_to_cut)
 meetings_to_cut_higher = math.ceil(meetings_to_cut)
 
 deficit_text = f'''
 \n The bad news is...
-\n You have a deficit of {balance_of_productive_time} hours to meet your deep work productivity target.
-\n We therefore reccomend you remove between {meetings_to_cut_lower} and {meetings_to_cut_higher} meeting(s) from your calendar,
+\n You have a deficit of {abs(balance_of_productive_time)} hours to meet your deep work productivity target.
+\n We therefore reccomend you remove between {abs(meetings_to_cut_lower)} and {abs(meetings_to_cut_higher)} meeting(s) from your calendar,
 based on an average meeting duration of {round(av_meeting_length, 0)}.
 \n Good luck!
 '''
