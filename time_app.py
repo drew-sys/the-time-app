@@ -28,7 +28,7 @@ intro_text = '''
 Meetings are important but they sometimes prevent us from doing deep work.
 \n This model captures the interaction effects of meetings on productive deep work time in a week.
 '''
-st.info(intro_text)
+st.write(intro_text)
 
 date_input = st.date_input(
     'Select a week in your calendar to analyse',
@@ -86,13 +86,15 @@ with col2:
         step=float(1)
     )
 
-
-info_text = '''
+help_text = '''
 \* 
 A meeting block is a series of back-to-back meetings separated by no more than 5 minutes. You should have less meeting blocks than meetings.
 \n Context switching refers to time it takes you to get back into a productive working mode. The average cost of context switching is 22 minutes and varies depending on the type of task you are undertaking.
 '''
-st.info(info_text)
+help_button = st.button('Parameter help')
+st.write(help_button)
+if help_button:
+    st.write(help_text)
 
 ####################################################################################################################
 
