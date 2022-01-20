@@ -255,7 +255,7 @@ with st.expander("Research"):
     st.write("""
     It is important to try to group your meetings into one block.
     """)
-    st.image("images/outlook_cal2.png", caption='A real outlook calendar.')
+    st.image("images/outlook_cal.png", caption='A real outlook calendar.')
 
     st.write('References below')
     body = '''
