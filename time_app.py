@@ -40,7 +40,7 @@ st.caption(f'We have assumed the following working rhythm: {int(DAYS_IN_WORKING_
 
 ####################################################################################################################
 
-st.subheader(f'Add Your Meeting Data For w/c: {week_start}')
+st.subheader(f'Add Your Meeting Data For w/c {week_start}')
 
 required_productive_proportion = st.slider(
     label='What proportion of time do you need to do deep work this week? (%)',
@@ -96,7 +96,7 @@ st.markdown(help_text)
 
 ####################################################################################################################
 
-st.subheader(f'Your Results For w/c: {week_start}')
+st.subheader(f'Your Results For w/c {week_start}')
 
 col1, col2 = st.columns(2)
 
@@ -189,7 +189,7 @@ with col2:
 
 ####################################################################################################################
 
-st.subheader(f'Your Reccomendations For w/c: {week_start}')
+st.subheader(f'Your Reccomendations For w/c {week_start}')
 
 st.write(f'You stated that you require {required_productive_proportion}% of your working week to be deep work focused productive time.')
 
