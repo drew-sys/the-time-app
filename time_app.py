@@ -23,7 +23,7 @@ st.set_page_config(page_title=title, page_icon='⏰', layout="centered", initial
 
 st.title(title)
 
-st.write('This model captures the interaction effects of meetings on productive time in a week.')
+st.write('Meetings are important but they sometimes prevent us from doing productive work. This model captures the interaction effects of meetings on productive time in a week.')
 
 date_input = st.date_input(
     'Select A Week To Analyse',
@@ -145,7 +145,7 @@ col1, col2 = st.columns(2)
 with col1:
     productive_time_lost = calc_productive_time_lost(input_total_meeting_hours, input_total_meeting_blocks, input_context_switch_cost_mins) 
     st.metric(
-        label='Non-working time (hours)', 
+        label='Non-productive work time (hours)', 
         value=round(productive_time_lost, 1), 
         #delta=float, 
         delta_color="normal")
@@ -153,7 +153,7 @@ with col1:
 with col2:
     productive_time_lost_prop = calc_productive_time_lost(input_total_meeting_hours, input_total_meeting_blocks, input_context_switch_cost_mins, True) 
     st.metric(
-        label='Non-working time (%)', 
+        label='Non-productive work time (%)', 
         value=f'{productive_time_lost_prop:.00%}', 
         #delta=float, 
         delta_color="normal")
@@ -163,7 +163,7 @@ col1, col2 = st.columns(2)
 with col1:
     productive_time = calc_potential_productive_time(input_total_meeting_hours, input_total_meeting_blocks, input_context_switch_cost_mins)
     st.metric(
-        label='Potential productive time (hours)', 
+        label='Productive work time (hours)', 
         value=round(productive_time, 1), 
         #delta=float, 
         delta_color="normal")
@@ -171,7 +171,7 @@ with col1:
 with col2:
     productive_time_prop = calc_potential_productive_time(input_total_meeting_hours, input_total_meeting_blocks, input_context_switch_cost_mins, True)
     st.metric(
-        label='Potential productive time (%)', 
+        label='Productive work time (%)', 
         value= f'{productive_time_prop:.00%}', 
         #delta=float, 
         delta_color="normal")
@@ -266,4 +266,4 @@ with st.expander("Research"):
 ####################################################################################################################
 
 
-st.caption('Developed with ❤️ in London.')
+st.caption('Made with ❤️ in London.')
