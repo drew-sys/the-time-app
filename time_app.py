@@ -23,14 +23,18 @@ st.set_page_config(page_title=title, page_icon='⏰', layout="centered", initial
 
 st.title(title)
 
-st.write('Meetings are important but they sometimes prevent us from doing deep work.')
-st.write('This model captures the interaction effects of meetings on productive deep work time in a week.')
+intro_text = '''
+\* 
+Meetings are important but they sometimes prevent us from doing deep work.
+\n This model captures the interaction effects of meetings on productive deep work time in a week.
+'''
+st.info(intro_text)
 
 date_input = st.date_input(
-    'Select A Week To Analyse',
+    'Select a week in your calendar to analyse',
     value=dt.today(), min_value=date(2022, 1, 1), max_value=date(2023, 1, 1))
 
-st.caption(f'Week commencing {get_week_start(date_input)}')
+st.caption(f'You chose week commencing: {get_week_start(date_input)}')
 
 ####################################################################################################################
 
@@ -85,8 +89,8 @@ with col2:
 
 info_text = '''
 \* 
-_A meeting block is a series of back-to-back meetings separated by no more than 5 minutes. You should have less meeting blocks than meetings._
-\n _Context switching refers to time it takes you to get back into a productive working mode. The average cost of context switching is 22 minutes and varies depending on the type of task you are undertaking._
+A meeting block is a series of back-to-back meetings separated by no more than 5 minutes. You should have less meeting blocks than meetings.
+\n Context switching refers to time it takes you to get back into a productive working mode. The average cost of context switching is 22 minutes and varies depending on the type of task you are undertaking.
 '''
 st.info(info_text)
 
