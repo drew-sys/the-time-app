@@ -186,16 +186,15 @@ st.write(f'You stated that you require {required_productive_proportion}% of your
 required_productive_proportion_calc = required_productive_proportion / 100
 current_productive_time = productive_time
 required_productive_time = required_productive_proportion_calc * TOTAL_WORKING_HOURS_IN_DAY
-balance_of_productive_time = required_productive_time - current_productive_time
-amount_of_time_required = round(balance_of_productive_time, 1)
+balance_of_productive_time = round(current_productive_time - required_productive_time, 1)
 av_meeting_length = calc_average_meeting_length(input_total_meeting_hours, input_total_meetings)
-meetings_to_cut = (amount_of_time_required * 60) / list({av_meeting_length or 1})[0]
+meetings_to_cut = -(balance_of_productive_time * 60) / list({av_meeting_length or 1})[0]
 meetings_to_cut_lower = math.floor(meetings_to_cut)
 meetings_to_cut_higher = math.ceil(meetings_to_cut)
 
 deficit_text = f'''
 \n The bad news is...
-\n You have a deficit of {amount_of_time_required} hours to meet your deep work productivity target.
+\n You have a deficit of {balance_of_productive_time} hours to meet your deep work productivity target.
 \n We therefore reccomend you remove between {meetings_to_cut_lower} and {meetings_to_cut_higher} meeting(s) from your calendar,
 based on an average meeting duration of {round(av_meeting_length, 0)}.
 \n Good luck!
@@ -203,7 +202,7 @@ based on an average meeting duration of {round(av_meeting_length, 0)}.
 
 surplus_text = f'''
 \n Lucky you!
-\n You have a surplus of {abs(amount_of_time_required)} hours to meet your deep work productivity target.
+\n You have a surplus of {abs(balance_of_productive_time)} hours to meet your deep work productivity target.
 \n You do not need to remove any meetings.
 \n You can probably use the extra time to make more progress on your work, take a long lunch, read a book, simply do nothing or anything else you choose 😊.
 '''
@@ -212,11 +211,11 @@ chosen_text = 'Complete parameter settings above to produce reccomendations'
 deficit_sign = ''
 
 img_path = "images/waiting.png"
-if amount_of_time_required > 0:
+if balance_of_productive_time < 0:
     chosen_text = deficit_text
     img_path = "images/stressed.png"
     
-if amount_of_time_required <= 0:
+if balance_of_productive_time >= 0:
     chosen_text = surplus_text
     deficit_sign = '(surplus)'
     img_path = "images/relaxed.png"
