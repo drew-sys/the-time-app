@@ -120,8 +120,7 @@ col1, col2 = st.columns(2)
 with col1:
     val = calc_meeting_time(
         total_hours_in_week=input_total_meeting_hours,
-        total_meeting_hours=input_total_meetings,
-        total_hours_in_week=input_working_hours_in_week)
+        total_meeting_hours=input_total_meetings)
     st.metric(
         label='Total meeting time (hours)',
         value=input_total_meeting_hours,
