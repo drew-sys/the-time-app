@@ -170,7 +170,7 @@ with col1:
         delta_color="normal")
 
 with col2:
-    productive_time_prop = calc_potential_productive_time(input_total_meeting_blocks, input_total_meeting_blocks, input_context_switch_cost_mins, True)
+    productive_time_prop = calc_potential_productive_time(input_total_meeting_hours, input_total_meeting_blocks, input_context_switch_cost_mins, True)
     st.metric(
         label='Potential productive time (%)', 
         value= f'{productive_time_prop:.00%}', 
