@@ -94,8 +94,8 @@ col1, col2, = st.columns(2)
 with col1:
     input_total_meeting_blocks = st.slider(
         label='3. Total number of meeting blocks *', 
-        min_value=float(0), 
-        max_value=float(max(1, list({input_total_meetings or 0})[0])), 
+        min_value=float(0),
+        max_value=float(max(1, list({input_total_meetings or 0})[0])),
         step=float(1)
     )
 
