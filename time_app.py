@@ -94,6 +94,8 @@ A meeting block is a series of back-to-back meetings separated by no more than 5
 help_button = st.button('Parameter help')
 if help_button:
     st.write(help_text)
+else:
+    st.write('')
 
 
 ####################################################################################################################
