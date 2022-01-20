@@ -38,7 +38,7 @@ st.caption(f'We have assumed the following working rhythm: {int(DAYS_IN_WORKING_
 
 ####################################################################################################################
 
-st.subheader('Parameters section')
+st.subheader('Add Your Meeting Data')
 
 required_productive_proportion = st.slider(
     label='What proportion of time do you need to do deep work this week? (%)',
@@ -94,7 +94,7 @@ st.markdown(help_text)
 
 ####################################################################################################################
 
-st.subheader('Results section')
+st.subheader('Your Results')
 
 col1, col2 = st.columns(2)
 
@@ -187,7 +187,7 @@ with col2:
 
 ####################################################################################################################
 
-st.subheader('Reccomendations')
+st.subheader('Your Reccomendations')
 
 st.write(f'You stated that you require {required_productive_proportion}% of your working week to be productive working time.')
 
@@ -253,7 +253,7 @@ st.image(img_path)
 
 ####################################################################################################################
 
-with st.expander("Research"):
+with st.expander("Futher Research"):
     st.write("""Research shows that there are many challenges to getting deep work done due to excessive meetings and the costs of context switching""")
     st.write('Advice #1: Each new project brings an overhead of meetings. Try to cut down on the number of projects you are juggling.', unsafe_allow_html=False)
     st.image("images/multitasking.png", caption='Multitasking is costly. Source: RescueTime')
