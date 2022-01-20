@@ -126,7 +126,7 @@ with col1:
         delta_color="normal")
 
 with col2:
-    val = calc_meeting_time(input_total_meeting_hours, input_total_meetings, as_prop=True, total_hours_in_week=input_working_hours_in_week) 
+    val = calc_meeting_time(input_total_meeting_hours, input_total_meetings, total_hours_in_week=input_working_hours_in_week, as_prop=True) 
     st.metric(
         label='Meeting time (%)',
         value=f'{val:.00%}',
