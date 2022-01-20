@@ -118,7 +118,10 @@ st.subheader(f'Your Results For w/c {week_start}')
 col1, col2 = st.columns(2)
 
 with col1:
-    val = calc_meeting_time(input_total_meeting_hours, input_total_meetings, total_hours_in_week=input_working_hours_in_week)
+    val = calc_meeting_time(
+        total_hours_in_week=input_total_meeting_hours,
+        total_meeting_hours=input_total_meetings,
+        total_hours_in_week=input_working_hours_in_week)
     st.metric(
         label='Total meeting time (hours)',
         value=input_total_meeting_hours,
@@ -126,7 +129,11 @@ with col1:
         delta_color="normal")
 
 with col2:
-    val = calc_meeting_time(input_total_meeting_hours, input_total_meetings, total_hours_in_week=input_working_hours_in_week, as_prop=True) 
+    val = calc_meeting_time(
+        total_hours_in_week=input_total_meeting_hours,
+        total_meeting_hours=input_total_meetings,
+        total_hours_in_week=input_working_hours_in_week,
+        as_prop=True) 
     st.metric(
         label='Meeting time (%)',
         value=f'{val:.00%}',
@@ -143,7 +150,10 @@ with col1:
         delta_color="normal")
 
 with col2:
-    av_block_length = calc_average_meeting_block_length(input_total_meeting_hours, input_total_meeting_blocks, total_hours_in_week=input_working_hours_in_week) 
+    av_block_length = calc_average_meeting_block_length(
+        total_meeting_hours=input_total_meeting_hours,
+        total_meeting_blocks=input_total_meeting_blocks,
+        total_hours_in_week=input_working_hours_in_week) 
     st.metric(
         label='Average meeting block duration (mins)',
         value=round(av_block_length, 0),
@@ -153,7 +163,10 @@ with col2:
 col1, col2 = st.columns(2)
 
 with col1:
-    lost_productivity = calc_lost_productivity(input_total_meeting_blocks, input_context_switch_cost_mins, total_hours_in_week=input_working_hours_in_week)
+    lost_productivity = calc_lost_productivity(
+        total_meeting_blocks=input_total_meeting_blocks,
+        context_switch_cost_mins=input_context_switch_cost_mins,
+        total_hours_in_week=input_working_hours_in_week)
     st.metric(
         label='Context switching tax (hours)',
         value=round(lost_productivity, 1),
@@ -161,7 +174,11 @@ with col1:
         delta_color="normal")
 
 with col2:
-    lost_productivity_prop = calc_lost_productivity(input_total_meeting_blocks, input_context_switch_cost_mins, total_hours_in_week=input_working_hours_in_week, as_prop=True)
+    lost_productivity_prop = calc_lost_productivity(
+        total_meeting_blocks=input_total_meeting_blocks,
+        context_switch_cost_mins=input_context_switch_cost_mins,
+        total_hours_in_week=input_working_hours_in_week,
+        as_prop=True)
     st.metric(
         label='Context switching tax (%)',
         value= f'{lost_productivity_prop:.00%}',
@@ -171,7 +188,11 @@ with col2:
 col1, col2 = st.columns(2)
 
 with col1:
-    productive_time_lost = calc_productive_time_lost(input_total_meeting_hours, input_total_meeting_blocks, input_context_switch_cost_mins, total_hours_in_week=input_working_hours_in_week) 
+    productive_time_lost = calc_productive_time_lost(
+        total_meeting_hours=input_total_meeting_hours,
+        total_meeting_blocks=input_total_meeting_blocks,
+        context_switch_cost_mins=input_context_switch_cost_mins,
+        total_hours_in_week=input_working_hours_in_week) 
     st.metric(
         label='Non-deep work productivity time (hours)',
         value=round(productive_time_lost, 1),
@@ -179,7 +200,12 @@ with col1:
         delta_color="normal")
 
 with col2:
-    productive_time_lost_prop = calc_productive_time_lost(input_total_meeting_hours, input_total_meeting_blocks, input_context_switch_cost_mins, total_hours_in_week=input_working_hours_in_week, as_prop=True) 
+    productive_time_lost_prop = calc_productive_time_lost(
+        total_meeting_hours=input_total_meeting_hours,
+        total_meeting_blocks=input_total_meeting_blocks,
+        context_switch_cost_mins=input_context_switch_cost_mins,
+        total_hours_in_week=input_working_hours_in_week,
+        as_prop=True) 
     st.metric(
         label='Non-deep work productive time (%)',
         value=f'{productive_time_lost_prop:.00%}',
@@ -189,7 +215,11 @@ with col2:
 col1, col2 = st.columns(2)
 
 with col1:
-    productive_time = calc_potential_productive_time(input_total_meeting_hours, input_total_meeting_blocks, input_context_switch_cost_mins, total_hours_in_week=input_working_hours_in_week)
+    productive_time = calc_potential_productive_time(
+        total_meeting_hours=input_total_meeting_hours,
+        total_meeting_blocks=input_total_meeting_blocks,
+        context_switch_cost_mins=input_context_switch_cost_mins,
+        total_hours_in_week=input_working_hours_in_week)
     st.metric(
         label='Deep work productive time (hours)',
         value=round(productive_time, 1),
@@ -197,7 +227,12 @@ with col1:
         delta_color="normal")
 
 with col2:
-    productive_time_prop = calc_potential_productive_time(input_total_meeting_hours, input_total_meeting_blocks, input_context_switch_cost_mins, total_hours_in_week=input_working_hours_in_week, as_prop=True)
+    productive_time_prop = calc_potential_productive_time(
+        total_meeting_hours=input_total_meeting_hours,
+        total_meeting_blocks=input_total_meeting_blocks,
+        context_switch_cost_mins=input_context_switch_cost_mins,
+        total_hours_in_week=input_working_hours_in_week,
+        as_prop=True)
     st.metric(
         label='Deep work productive time (%)', 
         value= f'{productive_time_prop:.00%}', 
@@ -212,7 +247,9 @@ st.write(f'You stated that you require {required_productive_proportion}% of your
 
 required_productive_time = (required_productive_proportion / 100) * input_working_hours_in_week
 balance_of_productive_time = round(productive_time - required_productive_time, 1)
-av_meeting_length = calc_average_meeting_length(input_total_meeting_hours, input_total_meetings)
+av_meeting_length = calc_average_meeting_length(
+    total_meeting_hours=input_total_meeting_hours, 
+    total_meetings=input_total_meetings)
 meetings_to_cut = (balance_of_productive_time * 60) / list({av_meeting_length or 1})[0]
 meetings_to_cut_lower = abs(math.ceil(meetings_to_cut))
 meetings_to_cut_higher = abs(math.floor(meetings_to_cut))
