@@ -5,8 +5,8 @@ from datetime import date
 from datetime import datetime as dt
 
 from time_model import (
-    TOTAL_WORKING_HOURS_IN_WEEK, MINIMUM_MEETING_LENGHT_MINS,
-    MAX_NUMBER_OF_MEETINGS, TOTAL_WORKING_HOURS_IN_DAY, ROUNDING_DEFAULT,
+    TOTAL_WORKING_HOURS_IN_WEEK, MAX_NUMBER_OF_MEETINGS, 
+    TOTAL_WORKING_HOURS_IN_DAY, ROUNDING_DEFAULT,
     get_week_start, calc_average_meeting_length, calc_average_meeting_block_length,
     calc_productive_time_lost, calc_potential_productive_time, calc_lost_productivity, 
     calc_meeting_time
@@ -111,15 +111,15 @@ col1, col2 = st.columns(2)
 with col1:
     st.metric(
         label='Total meeting blocks', 
-        value=f'{input_total_meeting_blocks:.1f}', 
+        value=round(input_total_meeting_blocks, 0),
         #delta=float, 
         delta_color="normal")
 
 with col2:
-    av_meeting_length = calc_average_meeting_block_length(input_total_meeting_hours, input_total_meeting_blocks) 
+    av_block_length = calc_average_meeting_block_length(input_total_meeting_hours, input_total_meeting_blocks) 
     st.metric(
         label='Average meeting block duration (mins)', 
-        value=av_meeting_length, 
+        value=round(av_block_length, 0),
         #delta=float, 
         delta_color="normal")
 
@@ -129,7 +129,7 @@ with col1:
     lost_productivity = calc_lost_productivity(input_total_meeting_blocks, input_context_switch_cost_mins)
     st.metric(
         label='Lost productivity (hours)', 
-        value=f'{lost_productivity:.1f}', 
+        value=round(lost_productivity, 1), 
         #delta=float, 
         delta_color="normal")
 
@@ -147,7 +147,7 @@ with col1:
     productive_time_lost = calc_productive_time_lost(input_total_meeting_hours, input_total_meeting_blocks, input_context_switch_cost_mins) 
     st.metric(
         label='Non-working time (hours)', 
-        value=productive_time_lost, 
+        value=round(productive_time_lost, 1), 
         #delta=float, 
         delta_color="normal")
 
@@ -165,7 +165,7 @@ with col1:
     productive_time = calc_potential_productive_time(input_total_meeting_hours, input_total_meeting_blocks, input_context_switch_cost_mins)
     st.metric(
         label='Potential productive time (hours)', 
-        value=f'{productive_time:.1f}', 
+        value=round(productive_time, 1), 
         #delta=float, 
         delta_color="normal")
 
@@ -231,7 +231,7 @@ if av_meeting_length <= 0:
 with col1:
     st.metric(
         label='Time required to meet productivity target (hours)', 
-        value= f'{amount_of_time_required}', 
+        value= f'{round(amount_of_time_required, 1)}', 
         #delta=float, 
         delta_color="normal")
 
@@ -256,7 +256,7 @@ with st.expander("Research"):
     st.write('Advice #3: Remember to takes breaks, and go for a walks outside and exercise. They will increase your productivity levels in the long run.', unsafe_allow_html=False)
     st.image("images/walk.png", caption="Take a long lunch. Source: Unsplash")
     st.write("Advice #4: Long hours are unsustainable and affect your long term productivity. You can cheat in the very short term, but your body keeps count.", unsafe_allow_html=False)
-    st.image("images/working_late.png", caption="Take a long lunch. Source: iStock")
+    st.image("images/working_late.png", caption="Sleep is your friend, know when to call it a day. Source: iStock")
     st.write('References below')
     body = '''
     \n - [VBA script to generate meeting time](https://www.extendoffice.com/documents/outlook/3551-outlook-calendar-count-hours-days-weeks.html)
